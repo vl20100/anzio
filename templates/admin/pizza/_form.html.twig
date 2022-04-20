@@ -1,0 +1,74 @@
+{{ form_start(form) }}
+    <div>
+        {{ form_label(form.name) }}
+        {% if form_errors(form.name) %}
+        {{ form_widget(form.name, {"attr": {"class":"form_error"}}) }}
+        {{ form_errors(form.name) }}
+        {% else %}
+        {{ form_widget(form.name) }}
+        {% endif %}
+    </div>
+    <div>
+        {{ form_label(form.creamBase) }}
+        {% if form_errors(form.creamBase) %}
+        {{ form_widget(form.creamBase, {"attr": {"class":"form_error"}}) }}
+        {{ form_errors(form.creamBase) }}
+        {% else %}
+        {{ form_widget(form.creamBase) }}
+        {% endif %}
+    </div>
+    <div>
+        {{ form_label(form.tomatoBase) }}
+        {% if form_errors(form.tomatoBase) %}
+        {{ form_widget(form.tomatoBase, {"attr": {"class":"form_error"}}) }}
+        {{ form_errors(form.tomatoBase) }}
+        {% else %}
+        {{ form_widget(form.tomatoBase) }}
+        {% endif %}
+    </div>
+    <div>
+        {{ form_label(form.ingredients) }}
+        {% if form_errors(form.ingredients) %}
+        {{ form_widget(form.ingredients, {"attr": {"class":"form_error"}}) }}
+        {{ form_errors(form.ingredients) }}
+        {% else %}
+        {{ form_widget(form.ingredients) }}
+        {% endif %}
+    </div>
+    <div>
+        {% for price in form.prices %}
+            <div>
+                <div>
+                    {{ form_label(price.size) }}
+                    {% if form_errors(price.size) %}
+                    {{ form_widget(price.size, {"attr": {"class":"form_error"}}) }}
+                    {{ form_errors(price.size) }}
+                    {% else %}
+                    {{ form_widget(price.size) }}
+                    {% endif %}
+                </div>
+                <div>
+                    {{ form_label(price.price) }}
+                    {% if form_errors(price.price) %}
+                    {{ form_widget(price.price, {"attr": {"class":"form_error"}}) }}
+                    {{ form_errors(price.price) }}
+                    {% else %}
+                    {{ form_widget(price.price) }}
+                    {% endif %}
+                </div>
+            </div>
+            <br>
+        {% endfor %}
+    </div>
+    <div>
+        {{ form_label(form.active) }}
+        {% if form_errors(form.active) %}
+        {{ form_widget(form.active, {"attr": {"class":"form_error"}}) }}
+        {{ form_errors(form.active) }}
+        {% else %}
+        {{ form_widget(form.active) }}
+        {% endif %}
+    </div>
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save'|trans) }}</button>
+{{ form_end(form) }}

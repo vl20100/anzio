@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PizzaOfMonth index{% endblock %}
+
+{% block body %}
+    <h1>PizzaOfMonth index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>CreamBase</th>
+                <th>TomatoBase</th>
+                <th>Active</th>
+                <th>Month</th>
+                <th>Shop</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for pizza_of_month in pizza_of_months %}
+            <tr>
+                <td>{{ pizza_of_month.id }}</td>
+                <td>{{ pizza_of_month.name }}</td>
+                <td>{{ pizza_of_month.creamBase ? 'Yes' : 'No' }}</td>
+                <td>{{ pizza_of_month.tomatoBase ? 'Yes' : 'No' }}</td>
+                <td>{{ pizza_of_month.active ? 'Yes' : 'No' }}</td>
+                <td>{{ pizza_of_month.month }}</td>
+                <td>
+                    {% set strShop = "" %}
+                    {% for shop in pizza_of_month.shop %}
+                        {% if strShop != "" %}
+                            {% set strShop = strShop ~ ', ' %}
+                        {% endif %}
+                        {% set strShop = strShop ~ shop %}
+                    {% endfor %}
+
+                    {{ strShop }}
+                </td>
+                <td>
+                    <a href="{{ path('pizza_of_month_show', {'id': pizza_of_month.id}) }}">show</a>
+                    <a href="{{ path('pizza_of_month_edit', {'id': pizza_of_month.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('pizza_of_month_new') }}">Create new</a>
+{% endblock %}

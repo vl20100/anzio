@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+
+{% block body %}
+    <h1>Administration</h1>
+
+    <ul>
+        <li><a href="{{ path('ingredient_index') }}">Gestion des ingrédients</a></li>
+        <li><a href="{{ path('pizza_index') }}">Gestion des pizzas</a></li>
+        <li><a href="{{ path('pizza_of_month_index') }}">Gestion des pizzas du mois</a></li>
+        <li><a href="{{ path('information_index') }}">Gestion des informations exceptionnelles</a></li>
+    </ul>
+{% endblock %}

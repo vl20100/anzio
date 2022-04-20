@@ -1,0 +1,31 @@
+nav#mainMenu{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    background-color: #A108C0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+nav#mainMenu .menuItem{
+    padding: 15px;
+    line-height: 2rem;
+    font-size: 1.25rem;
+    color: #FFFFFF;
+}
+
+nav#mainMenu .menuItem a{
+    color: #FFFFFF;
+    font-family: inherit;
+    text-decoration: none;
+    outline: none;
+}
+
+@media screen and (orientation: portrait)
+{
+    nav#mainMenu .menuItem{
+        font-size: 2.5rem;
+    }
+}

@@ -1,0 +1,272 @@
+section{
+    min-height: 100vh;
+    max-width: 100%;
+}
+
+#header{
+    background-color: #A108C0;
+    color: #FFFFFF;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+#header #siteTitle h1{
+    font-size: 4rem;
+    text-align: center;
+    margin-bottom: 15px;
+    font-family: Lobster, Roboto, Arial;
+}
+
+#header #siteTitle #restos{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#header #siteTitle #restos > span{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#header #siteTitle #restos > .horaires{
+    display: flex;
+    flex-direction: row;
+}
+
+#header #siteTitle #restos > .horaires > .info{
+    flex: 1;
+    border-bottom: none;
+}
+
+#header #siteTitle .restoTitle,
+#header #siteTitle .tel{
+    font-size: 1.5rem;
+    text-align: center;
+    margin-top: 15px;
+    font-family: Lobster, Roboto, Arial;
+}
+
+#header #siteTitle .tel a{
+    color: #FFFFFF;
+    text-decoration: none;
+    outline: none;
+    font-family: inherit;
+}
+
+#header #siteTitle img{
+    max-height: 30vh;
+    max-width: 30vw;
+}
+
+#header #siteTitle #restos .address{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    font-size: 2rem;
+}
+
+#header #siteTitle #restos .address > span{
+    font-family: Lobster, Roboto, Arial;
+}
+
+#infosExceptionnelles{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: #FFFFFF;
+    height: auto;
+    min-height: auto;
+}
+
+#carte h2{
+    text-align: center;
+    font-size: 3rem;
+    color: #A108C0;
+    font-family: Lobster, Roboto, Arial;
+}
+
+#carte > h3{
+    padding-left: 25px;
+}
+
+.filterZone{
+    display: flex;
+    flex-direction: column;
+}
+
+.filterLink{
+    display: inline-block;
+    color: #FFFFFF;
+    background-color: #A108C0;
+    text-align: center;
+    cursor: pointer;
+    margin-left: 80%;
+    width: 100px;
+    padding: 10px;
+    margin-bottom: 5px;
+}
+
+.filters{
+    display: none;
+    flex-direction: column;
+    border-top: 1px solid #A108C0;
+    border-bottom: 1px solid #A108C0;
+    margin: 0 15vw;
+}
+
+.filterLine{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    padding: 10px 0;
+}
+
+#filterIngredient + .select2{
+    flex: 1;
+}
+
+#pizzasOfMonth{
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.carteZone{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.pizza{
+    border: 3px solid #000000;
+    padding: 5px;
+    width: 45%;
+    margin-top: 10px;
+}
+
+.pizza .red{
+    color: red;
+}
+
+.pizza.creamBase{
+    border-color: #A108C0;
+}
+
+.pizza.hidden{
+    display: none;
+}
+
+.pizzaName h3{
+    border-bottom: 1px solid #000000;
+    color: #A108C0;
+    font-size: 1.5rem;
+}
+
+.vegetarian{
+    color: #009900;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.pricesZone{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.pricesZone .price{
+    margin: 5px;
+}
+
+footer{
+    width: 100%;
+    text-align: center;
+    background-color: #A9A9A9;
+    padding: 5px;
+    /*margin-top: 15px;*/
+}
+
+#infos{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: center;
+
+    min-height: auto;
+    background-color: #A108C0;
+    margin-top: 15px;
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 35%;
+    font-size: 1.5rem;
+    line-height: 3rem;
+    margin: 25px 0;
+    background-color: #A108C0;
+    color: #FFFFFF;
+    padding: 10px;
+    border-bottom: 3px solid white;
+}
+
+.infoText{
+    text-align: center;
+}
+
+.info .fal{
+    color: #FFFFFF;
+    font-size: 3rem;
+}
+
+@media screen and (orientation: portrait)
+{
+    #header #siteTitle #restos{
+        flex-direction: column;
+    }
+
+    #header #siteTitle h1{
+        font-size: 7rem;
+    }
+    
+    #header #siteTitle .tel{
+        font-size: 4rem;
+    }
+
+    #carte h2{
+        font-size: 5rem;
+    }
+
+    .pizza{
+        width: 75%;
+        margin-top: 25px;
+        font-size: 3rem;;
+    }
+
+    .pizzaName h3{
+        font-size: 3rem;
+    }
+
+    .pizzaName .vegetarian{
+        font-size: 2rem;
+    }
+
+    .pizzaBase p,
+    .ingredients p{
+        font-size: 1.5rem;
+    }
+
+    .prices p.price{
+        font-size: 2rem;
+    }
+}

@@ -1,0 +1,268 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <section id="header">
+        <div id="siteTitle">
+            <h1><span class="fal fa-pizza-slice"></span>&nbsp;&nbsp;Anzio Pizza</h1>
+            <span id="restos">
+                <span class="aix">
+                    <span class="restoTitle"></span>
+                    <img src="{{ asset('images/Anzio-aix.jpg') }}">
+                    <p class="tel"><a href="tel:+33479635230"><span class="fal fa-phone"></span>&nbsp;04.79.63.52.30</a></p>
+                    <p class="address"><span>7 Place du Rondeau</span><span>73100 Aix-les-Bains</span></p>
+                </span>
+                <span class="horaires">
+                    <div class="info">
+                        <span class="fal fa-clock"></span>
+                        <span class="infoText">Ouvert tous les jours</span>
+                        <span class="infoText">de 11h45 à 13h30</span>
+                        <span class="infoText">et de 17h45 à 22h00</span>
+                        <span class="infoText">Fermé le midi les dimanche et jours fériés</span>
+                    </div>
+                </span>
+                {# <span class="motte">
+                    <span class="restoTitle">La Motte-Servolex</span>
+                    <img src="{{ asset('images/Anzio-la-motte.jpg') }}">
+                    <p class="tel"><a href="tel:+33479256408"><span class="fal fa-phone"></span>&nbsp;04.79.25.64.08</a></p>
+                    <p class="address"><span>11 Place du Bourg</span><span>73290 La Motte-Servolex</span></p>
+
+                </span> #}
+            </span>
+        </div>
+    </section>
+
+    {% if (infos | length) > 0 %}
+    <section id="infosExceptionnelles">
+        {% for info in infos %}
+            <div class="infoExceptionnelle">
+                <p style="text-align: center;">{{ info.content | raw }}</p>
+            </div>
+        {% endfor %}
+    </section>
+    {% endif %}
+    
+    <section id="carte">
+        <h2><span class="fal fa-pizza"></span> Nos pizza</h2>
+        <div class="filterZone">
+            <span class="filterLink">+ Filtrer</span>
+            <span class="filters">
+                <div class="filterLine">
+                    <label for="chk_vegan">N'afficher que les <span class="vegetarian"><span class="fal fa-leaf"></span>&nbsp;&nbsp;Pizzas végétariennes</span></label>
+                    <input type="checkbox" name="chk_vegan" id="chk_vegan">
+                </div>
+                <div class="filterLine">
+                    <span>N'afficher que les pizzas </span>
+                    <select id="selectContaining">
+                        <option value="yes">contenant</option>
+                        <option value="no">ne contenant pas</option>
+                    </select>
+                    <select multiple id="filterIngredient">
+                        {% for ingredient in ingredients %}
+                            <option data-name="{{ ingredient.slug }}">{{ ingredient.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </span>
+        </div>
+        {% if (pizzasOfMonth | length) > 0 %}
+            <h3>Pizzas du mois</h3>
+            <div class="carteZone" id="pizzasOfMonth">
+                {% for pizza in pizzasOfMonth %}
+                    {% set vegetarian = true %}
+                    {% for ingredient in pizza.ingredients %}
+                        {% if ingredient.vegetarian == false %}
+                            {% set vegetarian = false %}
+                        {% endif %}
+                    {% endfor %}
+                    <div class="pizza{% if vegetarian %} vegan{% endif %}"
+                        {% for ingredient in pizza.ingredients %}
+                            data-{{ ingredient.slug }}="1"
+                        {% endfor %}
+                    >
+                        <div class="pizzaName">
+                            <h3>{# <span class="fal fa-pizza-slice"></span> #}{{ pizza.name }} {% if vegetarian %}<span class="vegetarian"><span class="fal fa-leaf"></span>&nbsp;&nbsp;Pizza végétarienne</span>{% endif %}</h3>
+                            
+                            {% set strShop = "" %}
+                            {% for shop in pizza.shop %}
+                                {% if strShop != "" %}
+                                    {% set strShop = strShop ~ ' et ' %}
+                                {% endif %}
+                                {% set strShop = strShop ~ shop %}
+                            {% endfor %}
+                        
+                            {# <h4><span class="fas fa-map-marker-alt"></span> Pizza du mois à {{ strShop }}</h4> #}
+                        </div>
+                        <div class="pizzaBase">
+                            {% if pizza.creamBase and pizza.tomatoBase %}
+                                <p>
+                                    <span class="fas fa-pumpkin"></span>&nbsp;<span class="fas fa-glass"></span>&nbsp;&nbsp;&nbsp;&nbsp;Base crème ou base tomate
+                                </p>
+                            {% elseif pizza.creamBase %}
+                            <p>
+                                <span class="fas fa-glass"></span>&nbsp;&nbsp;&nbsp;&nbsp;Base crème
+                            </p>
+                            {% elseif pizza.tomatoBase %}
+                            <p>
+                                <span class="fas fa-pumpkin"></span>&nbsp;&nbsp;&nbsp;&nbsp;Base tomate
+                            </p>
+                            {% endif %}
+                        </div>
+                        <div class="ingredients">
+                            {% set list_ingredients = "" %}
+                            {% for ingredient in pizza.ingredients %}
+                                {% if loop.index > 1 %}
+                                    {% set list_ingredients = list_ingredients ~ ", " %}
+                                {% endif %}
+                                {% if ' ou ' in ingredient.name %}
+                                    {% set list_ingredients = list_ingredients ~ '<span class="red">' ~ ingredient ~ '</span>' %}
+                                {% else %}
+                                    {% set list_ingredients = list_ingredients ~ ingredient %}
+                                {% endif %}
+                            {% endfor %}
+                            <p><span class="fas fa-shapes"></span>&nbsp;&nbsp;&nbsp;&nbsp;{{ list_ingredients | raw }}</p>
+                        </div>
+                        <div class="prices">
+                            <div class="pricesZone">
+                                <span class="fal fa-coins"></span>
+                                {% for price in pizza.prices %}
+                                    <p class="price">ø{{ price.size }}cm : {{ price.price | number_format(2, ',', ' ') }}€</p>
+                                {% endfor %}
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <h3>Notre carte</h3>
+        <div class="carteZone">
+            {% for pizza in pizzas %}
+                {% set vegetarian = true %}
+                {% for ingredient in pizza.ingredients %}
+                    {% if ingredient.vegetarian == false %}
+                        {% set vegetarian = false %}
+                    {% endif %}
+                {% endfor %}
+                <div class="pizza{% if vegetarian %} vegan{% endif %}{% if pizza.creamBase %} creamBase{% endif %}"
+                    {% for ingredient in pizza.ingredients %}
+                        data-{{ ingredient.slug }}="1"
+                    {% endfor %}
+                >
+                    <div class="pizzaName">
+                        <h3>{# <span class="fal fa-pizza-slice"></span> #}{{ pizza.name }} {% if vegetarian %}<span class="vegetarian"><span class="fal fa-leaf"></span>&nbsp;&nbsp;Pizza végétarienne</span>{% endif %}</h3>
+                    </div>
+                    <div class="pizzaBase">
+                        {% if pizza.creamBase and pizza.tomatoBase %}
+                            <p>
+                                <span class="fas fa-pumpkin"></span>&nbsp;<span class="fas fa-glass"></span>&nbsp;&nbsp;&nbsp;&nbsp;Base crème ou base tomate
+                            </p>
+                        {% elseif pizza.creamBase %}
+                        <p>
+                            <span class="fas fa-glass"></span>&nbsp;&nbsp;&nbsp;&nbsp;Base crème
+                        </p>
+                        {% elseif pizza.tomatoBase %}
+                        <p>
+                            <span class="fas fa-pumpkin"></span>&nbsp;&nbsp;&nbsp;&nbsp;Base tomate
+                        </p>
+                        {% endif %}
+                    </div>
+                    <div class="ingredients">
+                        {% set list_ingredients = "" %}
+                        {% for ingredient in pizza.ingredients %}
+                            {% if loop.index > 1 %}
+                                {% set list_ingredients = list_ingredients ~ ", " %}
+                            {% endif %}
+                            {% if ' ou ' in ingredient.name %}
+                                {% set list_ingredients = list_ingredients ~ '<span class="red">' ~ ingredient ~ '</span>' %}
+                            {% else %}
+                                {% set list_ingredients = list_ingredients ~ ingredient %}
+                            {% endif %}
+                        {% endfor %}
+                        <p><span class="fas fa-shapes"></span>&nbsp;&nbsp;&nbsp;&nbsp;{{ list_ingredients | raw }}</p>
+                    </div>
+                    <div class="prices">
+                        <div class="pricesZone">
+                            <span class="fal fa-coins"></span>
+                            {% for price in pizza.prices %}
+                                <p class="price">ø{{ price.size }}cm : {{ price.price | number_format(2, ',', ' ') }}€</p>
+                            {% endfor %}
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+    <section id="infos">
+        <div class="info">
+            <span class="fal fa-exchange"></span>
+            <span class="infoText">Changez la base de votre pizza.</span>
+            <span class="infoText">Vous êtes plus tomate ou crème ?</span>
+        </div>
+        <div class="info">
+            <span class="fal fa-map-marked-alt"></span>
+            <span class="infoText">Produits principalement</span>
+            <span class="infoText">issus de commerces locaux</span>
+        </div>
+        <div class="info">
+            <span class="fal fa-wheelchair"></span>
+            <span class="infoText">Accès PMR</span>
+        </div>
+        <div class="info">
+            <span class="fal fa-credit-card"></span>
+            <span class="infoText">CB à partir de 10€</span>
+        </div>
+        <div class="info">
+            <span class="fal fa-cart-plus"></span>
+            <span class="infoText">Ajoutez vos ingrédients</span>
+            <span class="infoText">
+                <ul>
+                    <li>0.80€ / suplément en taille 26</li>
+                    <li>1.00€ / suplément en taille 33</li>
+                    <li>1.50€ / suplément en taille 40</li>
+                    <li>1.00€ / suplément oeuf</li>
+                </ul>
+            </span>
+        </div>
+        <div class="info">
+            <span class="fal fa-clock"></span>
+            <span class="infoText">Ouvert tous les jours</span>
+            <span class="infoText">de 11h45 à 13h30</span>
+            <span class="infoText">et de 17h45 à 22h00</span>
+            <span class="infoText">Fermé le midi les dimanche et jours fériés</span>
+        </div>
+        <div class="info">
+            <span class="fal fa-game-board"></span>
+            <span class="infoText">Plateau pizza sur commande</span>
+            <span class="infoText">24h à l'avance</span>
+        </div>
+        <div class="info">
+            <span class="fal fa-pizza"></span>
+            <span class="infoText">Avec la carte de fidélité</span>
+            <span class="infoText">la 12ème pizza est offerte !</span>
+        </div>
+        <div class="info">
+            <span class="fal fa-hand-holding-box"></span>
+            <span class="infoText">A emporter uniquement</span>
+        </div>
+        <div class="info">
+            <span class="fal fa-phone-rotary"></span>
+            <span class="infoText">Si ça sonne occupé,</span>
+            <span class="infoText">n'hésitez pas à rappeler !</span>
+        </div>
+    </section>
+    <footer>
+        <p>Site développé par <a href="https://fr.linkedin.com/in/leclercqvincent" target="_blank">Vincent Leclercq</a> - Anzio Pizza©{{ "now" | date('Y') }}</p>
+    </footer>
+    {#<section id="contact">
+        Nous contacter
+    </section>#}
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('style/home.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('script/filters.js') }}"></script>
+{% endblock %}

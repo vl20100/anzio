@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Information{% endblock %}
+
+{% block body %}
+    <h1>Create new Information</h1>
+
+    {{ include('admin/information/_form.html.twig') }}
+
+    <a href="{{ path('information_index') }}">back to list</a>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdn.tiny.cloud/1/1inu3xk7lj1qm60w4po42dvrw2kfrxuyuqp4ni1pcxiimlzz/tinymce/5/tinymce.min.js" referrerpolicy="origin"/></script>
+    <script src="{{ asset('script/informationForm.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit PizzaOfMonth{% endblock %}
+
+{% block body %}
+    <h1>Edit PizzaOfMonth</h1>
+
+    {{ include('admin/pizza_of_month/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('pizza_of_month_index') }}">back to list</a>
+
+    {{ include('admin/pizza_of_month/_delete_form.html.twig') }}
+{% endblock %}
+
+{% block javascripts %}
+<script>
+$(function(){
+    $("select").select2();
+});
+</script>
+{% endblock %}
