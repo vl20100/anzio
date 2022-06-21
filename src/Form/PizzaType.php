@@ -23,6 +23,10 @@ class PizzaType extends AbstractType
                 "label" => "TomatoBase",
                 "required" => false
             ])
+            ->add('truffleBase', CheckboxType::class, [
+                "label" => "TruffleBase",
+                "required" => false
+            ])
             ->add('ingredients')
             ->add('prices', CollectionType::class, [
                 'entry_type' => PriceType::class,

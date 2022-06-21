@@ -12,6 +12,7 @@
                 <th>Name</th>
                 <th>CreamBase</th>
                 <th>TomatoBase</th>
+                <th>TruffleBase</th>
                 <th>Ingredients</th>
                 <th>Active</th>
                 <th>actions</th>
@@ -24,6 +25,7 @@
                 <td>{{ pizza.name }}</td>
                 <td>{{ pizza.creamBase ? 'Yes' : 'No' }}</td>
                 <td>{{ pizza.tomatoBase ? 'Yes' : 'No' }}</td>
+                <td>{{ pizza.truffleBase ? 'Yes' : 'No' }}</td>
                 <td>
                     <ul>
                         {% for ingredient in pizza.ingredients %}

@@ -44,6 +44,11 @@ class Pizza
     protected $tomatoBase;
 
     /**
+     * @ORM\Column(type="boolean", options={"default": false})
+     */
+    protected $truffleBase = false;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     protected $active = false;
@@ -190,6 +195,24 @@ class Pizza
     {
         $this->active = $active;
 
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTruffleBase(): bool
+    {
+        return $this->truffleBase;
+    }
+
+    /**
+     * @param bool $truffleBase
+     * @return Pizza
+     */
+    public function setTruffleBase(bool $truffleBase): Pizza
+    {
+        $this->truffleBase = $truffleBase;
         return $this;
     }
 }

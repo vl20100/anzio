@@ -20,10 +20,19 @@
     <div>
         {{ form_label(form.tomatoBase) }}
         {% if form_errors(form.tomatoBase) %}
-        {{ form_widget(form.tomatoBase, {"attr": {"class":"form_error"}}) }}
-        {{ form_errors(form.tomatoBase) }}
+            {{ form_widget(form.tomatoBase, {"attr": {"class":"form_error"}}) }}
+            {{ form_errors(form.tomatoBase) }}
         {% else %}
-        {{ form_widget(form.tomatoBase) }}
+            {{ form_widget(form.tomatoBase) }}
+        {% endif %}
+    </div>
+    <div>
+        {{ form_label(form.truffleBase) }}
+        {% if form_errors(form.truffleBase) %}
+            {{ form_widget(form.truffleBase, {"attr": {"class":"form_error"}}) }}
+            {{ form_errors(form.truffleBase) }}
+        {% else %}
+            {{ form_widget(form.truffleBase) }}
         {% endif %}
     </div>
     <div>
